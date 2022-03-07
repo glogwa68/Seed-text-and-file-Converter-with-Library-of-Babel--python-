@@ -1,6 +1,7 @@
 import pybel as babel
 import base64
 import numpy as np
+import os
 
 global ha, sh, wa, vo, on
 global count1, count2, count3, count4
@@ -8,13 +9,15 @@ global tab1, tab2, tab3, tab4
 global numberof, it, reberyfit, rebery_comp, memory
 global search, bypass, listchar, triggerdit, reberylist_strings, reberyrange_strings, countchar, strining
 global ranging_word, element_wording, elemint, passing_wordone, elements_trigger, roberylist, roberyrange, roberylist_a, roberyrange_a
-global list_on, iti, add, string_on, itit, add2, string_on2, tab_on2
+global list_on, iti, add, string_on, itit, add2, string_on2, tab_on2, pimped, adding
 
 add = 0
 add2 = 0
+pimped = []
 tab_on = []
 tab_on2 = []
 bypass = 0
+adding = 0
 ha = 1
 sh = 1
 wa = 1
@@ -38,7 +41,16 @@ string = b"A"
 bytesstring = base64.b64encode(string)
 #print(str(bytesstring.decode()))
 
-strining = input("Quel est le mots que vous voulez transformé : ")
+choice = input("(1)='Convert Text' (2)='convert file' : ")
+
+if choice == "1":
+    strining = input("text to convert : ")
+if choice == "2":
+    file = input("file to convert (emplcamement) : ")
+if not choice == "1" or choice == "2":
+    print("mauvaise reponse !")
+    pass
+
 #print(strining)
 on = 0
 passing_wordone = 0
@@ -73,7 +85,7 @@ while True:
 
         if not add == 0:
             if elements_trigger == add:
-                print("Fin du fichier..")
+                print("Fin du fichier.. (press CTRL+C to exit)")
                 break
         with open(f"stockage/{ha}-{sh}-{wa}-{vo}.txt", 'r', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle3:
             list_on = filehandle3.read()
@@ -147,13 +159,32 @@ while True:
                 #print(f"{' '.join(reberylist_strings).replace('[', '').replace(']', '').replace(' ', '')}" + "  :  " + f"{pimp}")
                 #print(f"[{columns[listchar]}, {element_wording}]")
                 if ' '.join(reberylist_strings).replace('[', '').replace(']', '').replace(' ', '') == strining:
-                    for indice in range(len(strining)):
-                        with open(f"encoding/{strining}.txt", 'a+', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle2:
-                            filehandle2.write(f"{listing[passing_wordone]}, " + f"[{ha},{sh},{wa},{vo}], " + f"[{pimp}]" + "\n")
-                            filehandle2.close()
-                        passing_wordone += 1
-                        passing_counting_word_[f"{listit}"] += 1
-                    print(f"Writing on : 'encoding/{strining}.txt'")
+                    fileName = rf"encoding/{strining}.txt"
+                    isExist = os.path.exists(fileName)
+                    if isExist != True:
+                        for indice in range(len(strining)):
+                            with open(f"encoding/{strining}.txt", 'a+', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle2:
+                                pimped = pimp.split(", ")
+                                filehandle2.write(f"[{ha},{sh},{wa},{vo}], " + f"[{pimped[adding]}]" + "\n")
+                                print(pimped)
+                                print(f"Writing on : 'encoding/{strining}.txt' with line number : {pimped[adding]}")
+                                filehandle2.close()
+                                adding += 1
+                            passing_wordone += 1
+                            passing_counting_word_[f"{listit}"] += 1
+                            if adding == len(strining):
+                                with open(f"encoding/{strining}.txt", 'r', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle4:
+                                    pimper = filehandle4.read()
+                                    strining_fait = base64.b64encode(pimper.encode('utf-8'))
+                                    with open(f"seed/{strining}.seed", 'w', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle5:
+                                        filehandle5.write(f"{strining_fait.decode()}")
+                                        print(f"file saved as : 'seed/{strining}.seed'")
+                                        filehandle5.close()
+                                    filehandle2.close()
+                                print("max char obtained quit!!")
+                                break
+                    else :
+                        print("file exist !")
                     break
                 else:
                     #print(' '.join(reberylist_strings).replace('[', '').replace(']', '').replace(' ', ''))
@@ -172,6 +203,7 @@ while True:
         except IndexError:
             print(f"arreté a partire de : {elements_trigger}")
             bypass += 1
+            break
         else:
             search = False
             continue
