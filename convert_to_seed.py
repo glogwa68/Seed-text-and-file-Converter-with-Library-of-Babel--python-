@@ -60,8 +60,9 @@ roberyrange_a = np.array([] * len(strining), dtype=np.int64)
 
 while True:
     search = babel.check(strining, babel.getbook(hexagon=str(ha), shelf=str(sh), wall=str(wa), volume=str(vo)))
-    if search == True:
-        with open(f"stockage/{ha}-{sh}-{wa}-{vo}.txt", 'w+', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle:
+    if search:
+        with open(f"stockage/{ha}-{sh}-{wa}-{vo}.txt", 'w+', newline='\n', encoding='utf-8',
+                  buffering=2 ** 10) as filehandle:
             columns = babel.getbook(hexagon=str(ha), shelf=str(sh), wall=str(wa), volume=str(vo))
             filehandle.write(f"{columns}")
             filehandle.close()
@@ -78,7 +79,8 @@ while True:
             if elements_trigger == add:
                 print("Fin du fichier.. (press CTRL+C to exit)")
                 break
-        with open(f"stockage/{ha}-{sh}-{wa}-{vo}.txt", 'r', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle3:
+        with open(f"stockage/{ha}-{sh}-{wa}-{vo}.txt", 'r', newline='\n', encoding='utf-8',
+                  buffering=2 ** 10) as filehandle3:
             list_on = filehandle3.read()
             for iti in range(len(list_on)):
                 if not len(list_on) == add:
@@ -88,12 +90,16 @@ while True:
                     if len(list_on) == add:
                         print("Fin du fichier..")
                         break
-        def charposition(string, char):
+
+
+        def charposition(my_string, char):
             pos = []  # list to store positions for each 'char' in 'string'
-            for n in range(len(string)):
-                if string[n] == char:
+            for n in range(len(my_string)):
+                if my_string[n] == char:
                     pos.append(n)
             return pos
+
+
         numberofchar = list(range(len(strining)))
         listing = list(strining)
         listchar += elements_trigger
@@ -126,19 +132,34 @@ while True:
                         print("Fin du fichier..")
                         break
                     triggerdit += 1
-                    reberylist_strings = np.append(reberylist_strings, str(' '.join(roberylist_a).replace("[", "").replace("]", "").replace(" ", "")), None)
-                    reberyrange_strings = np.append(reberyrange_strings, str(' '.join(roberyrange_a).replace(" ", ",")), None)
+
+                    reberylist_strings = \
+                        np.append(
+                            reberylist_strings,
+                            str(' '.join(roberylist_a).replace("[", "").replace("]", "").replace(" ", "")),
+                            None
+                        )
+                    reberyrange_strings = np.append(reberyrange_strings, str(' '.join(roberyrange_a).replace(" ", ",")),
+                                                    None)
                 numberof = len(strining)
                 reberyfit = f"{' '.join(reberyrange_strings).replace(' ', '', 1).replace(' ', ', ')}"
                 rebery_out = reberyfit.split(', ')
                 rebery_comp = [rebery_out[i:i + numberof] for i in range(0, len(rebery_out), numberof)]
-                pimp = ' '.join(str(rebery_comp)).replace(' ', '').replace(' ', ', ').replace('[', '').replace(']', '').replace("'", '').replace(',', ', ')
+                pimp = ' '.join(str(rebery_comp))\
+                    .replace(' ', '')\
+                    .replace(' ', ', ')\
+                    .replace('[', '')\
+                    .replace(']', '')\
+                    .replace("'", '')\
+                    .replace(',', ', ')
+
                 if ' '.join(reberylist_strings).replace('[', '').replace(']', '').replace(' ', '') == strining:
                     fileName = rf"encoding/{strining}.txt"
                     isExist = os.path.exists(fileName)
-                    if isExist != True:
+                    if not isExist:
                         for indice in range(len(strining)):
-                            with open(f"encoding/{strining}.txt", 'a+', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle2:
+                            with open(f"encoding/{strining}.txt", 'a+', newline='\n', encoding='utf-8',
+                                      buffering=2 ** 10) as filehandle2:
                                 pimped = pimp.split(", ")
                                 filehandle2.write(f"[{ha},{sh},{wa},{vo}], " + f"[{pimped[adding]}]" + "\n")
                                 print(pimped)
@@ -148,17 +169,19 @@ while True:
                             passing_wordone += 1
                             passing_counting_word_[f"{listit}"] += 1
                             if adding == len(strining):
-                                with open(f"encoding/{strining}.txt", 'r', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle4:
+                                with open(f"encoding/{strining}.txt", 'r', newline='\n', encoding='utf-8',
+                                          buffering=2 ** 10) as filehandle4:
                                     pimper = filehandle4.read()
                                     strining_fait = base64.b64encode(pimper.encode('utf-8'))
-                                    with open(f"seed/{strining}.seed", 'w', newline='\n', encoding='utf-8', buffering=2 ** 10) as filehandle5:
+                                    with open(f"seed/{strining}.seed", 'w', newline='\n', encoding='utf-8',
+                                              buffering=2 ** 10) as filehandle5:
                                         filehandle5.write(f"{strining_fait.decode()}")
                                         print(f"file saved as : 'seed/{strining}.seed'")
                                         filehandle5.close()
                                     filehandle2.close()
                                 print("max char obtained quit!!")
                                 break
-                    else :
+                    else:
                         print("file exist !")
                     break
                 else:
@@ -179,7 +202,7 @@ while True:
         else:
             search = False
             continue
-    if search == False:
+    if not search:
         if count1 in tab1:
             ha += 1
         if count2 in tab2:
@@ -192,4 +215,13 @@ while True:
         pass
 
     elements_trigger = elements_trigger + int(len(strining) - 1)
-    print("bypass : " + f"{bypass}" + " || " + "element_trigger : " + f"{elements_trigger}" + " || " + "trigger : " + f"{triggerdit}")
+    print(
+        "bypass : " +
+        f"{bypass}" +
+        " || " +
+        "element_trigger : " +
+        f"{elements_trigger}" +
+        " || " +
+        "trigger : " +
+        f"{triggerdit}"
+    )

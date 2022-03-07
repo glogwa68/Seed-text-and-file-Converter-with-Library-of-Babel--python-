@@ -1,5 +1,4 @@
 import base64
-import pybel as babel
 
 global typo, tab
 typo = 0
