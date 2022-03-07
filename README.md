@@ -12,4 +12,4 @@ and if you enter 2 you transform a file into a "seed" key part 2 is still being
 created so not fully functional.
 
 to have the basic text from the seed you can execute the file named "convert_to_file.py" 
-then indicating the .seed file contained in the seed folder, of the seed you want to translate.
+then indicating the '.seed' file contained in the seed folder, of the seed you want to translate.
