@@ -26,10 +26,6 @@ count1 = 0
 count2 = 0
 count3 = 0
 count4 = 0
-#tab4 = [range(1, 32)]
-#tab3 = [range(1, 4)]
-#tab2 = [range(1, 5)]
-#tab1 = [range(0, 10)]
 
 tab4 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
 tab3 = [32, 33, 34, 35]
@@ -37,9 +33,7 @@ tab2 = [35, 36, 37, 38, 39]
 tab1 = [39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
 
 string = b"A"
-
 bytesstring = base64.b64encode(string)
-#print(str(bytesstring.decode()))
 
 choice = input("(1)='Convert Text' (2)='convert file' : ")
 
@@ -51,7 +45,6 @@ if not choice == "1" or choice == "2":
     print("mauvaise reponse !")
     pass
 
-#print(strining)
 on = 0
 passing_wordone = 0
 elements_trigger = 0
@@ -81,8 +74,6 @@ while True:
             print("Not Found on:" + " -> " + f"hexagon: {ha} || shelf: {sh} || wall: {wa} || volume: {vo}")
             continue
         columns = babel.getbook(hexagon=str(ha), shelf=str(sh), wall=str(wa), volume=str(vo))
-        #print(columns)
-
         if not add == 0:
             if elements_trigger == add:
                 print("Fin du fichier.. (press CTRL+C to exit)")
@@ -103,18 +94,12 @@ while True:
                 if string[n] == char:
                     pos.append(n)
             return pos
-
         numberofchar = list(range(len(strining)))
-
         listing = list(strining)
-        #print(listing[0])
-
         listchar += elements_trigger
-
         passing_counting_word_ = {}
         passing_word_length_ = {}
         passing_wording_ = {}
-
         for ranging_word in range(len(strining)):
             if ranging_word in passing_counting_word_:
                 passing_counting_word_[ranging_word] += 1
@@ -127,13 +112,11 @@ while True:
 
         listit = countchar
         countchar += 1
-        #print(f"{reberyrange_strings}")
         try:
             passing_counting_word_[f"{listit}"] = numberofchar[countchar]
             passing_word_length_[f"{listit}"] = numberofchar[countchar]
             passing_wording_[f"{listit}"] = charposition(columns, listing[countchar])
             for word in range(len(columns)):
-                #print(elements_trigger, triggerdit)
                 elements_trigger -= int(len(strining) - 1)
                 for repeat_work in range(len(listing)):
                     roberylist_a = np.append(roberylist, f"[{columns[listchar + elements_trigger]}]", None)
@@ -145,19 +128,11 @@ while True:
                     triggerdit += 1
                     reberylist_strings = np.append(reberylist_strings, str(' '.join(roberylist_a).replace("[", "").replace("]", "").replace(" ", "")), None)
                     reberyrange_strings = np.append(reberyrange_strings, str(' '.join(roberyrange_a).replace(" ", ",")), None)
-                    #print(reberyrange_strings)
-
                 numberof = len(strining)
                 reberyfit = f"{' '.join(reberyrange_strings).replace(' ', '', 1).replace(' ', ', ')}"
                 rebery_out = reberyfit.split(', ')
                 rebery_comp = [rebery_out[i:i + numberof] for i in range(0, len(rebery_out), numberof)]
-                #print(rebery_comp)
-                #print(f"{roberylist_a} : {roberyrange_a}")
-                #print(f"[{columns[listchar + elements_trigger]}]" + " : " + f"{listchar + elements_trigger}")
                 pimp = ' '.join(str(rebery_comp)).replace(' ', '').replace(' ', ', ').replace('[', '').replace(']', '').replace("'", '').replace(',', ', ')
-                #if elements_trigger == [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000, 1100000, 1200000, 1300000, 1400000]:
-                #print(f"{' '.join(reberylist_strings).replace('[', '').replace(']', '').replace(' ', '')}" + "  :  " + f"{pimp}")
-                #print(f"[{columns[listchar]}, {element_wording}]")
                 if ' '.join(reberylist_strings).replace('[', '').replace(']', '').replace(' ', '') == strining:
                     fileName = rf"encoding/{strining}.txt"
                     isExist = os.path.exists(fileName)
@@ -187,15 +162,12 @@ while True:
                         print("file exist !")
                     break
                 else:
-                    #print(' '.join(reberylist_strings).replace('[', '').replace(']', '').replace(' ', ''))
                     roberylist = np.delete(roberylist, roberylist, None)
                     roberylist_a = np.delete(roberylist_a, roberylist, None)
                     roberyrange = np.delete(roberyrange, roberyrange, None)
                     roberyrange_a = np.delete(roberyrange_a, roberyrange, None)
                     reberylist_strings = ""
                     reberyrange_strings = ""
-
-            #print(f"{element_wording}")
             countchar += 1
             listchar += 1
             passing_word_length_[ranging_word] += 1
@@ -220,5 +192,4 @@ while True:
         pass
 
     elements_trigger = elements_trigger + int(len(strining) - 1)
-    #print("bypass : " + f"{bypass}" + " || " + "element_trigger : " + f"{elements_trigger}" + " || " + "trigger : " + f"{triggerdit}" + " || " + f"{reberylist_strings}" + " || " + f"{reberyrange_strings}")
     print("bypass : " + f"{bypass}" + " || " + "element_trigger : " + f"{elements_trigger}" + " || " + "trigger : " + f"{triggerdit}")
